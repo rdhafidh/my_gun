@@ -1,5 +1,7 @@
 # My Personal Compiler Gun 
 
+Download the binary in the [release tab](https://github.com/rdhafidh/my_gun) of this project.
+
 ## To check
 hv@pc1:/work$ sha256sum clang7glibc2.11_libgcc_s_unwinder.7z
 920d4e0f77cd51374f9140835e602991de75b92933eb756a74d10a6369861897  clang7glibc2.11_libgcc_s_unwinder.7z
