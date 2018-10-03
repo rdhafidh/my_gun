@@ -1,11 +1,17 @@
 # My Personal Compiler Gun 
 
+Download the binary in the [release tab](https://github.com/rdhafidh/my_gun) of this project.
+
 ## To check
+```
 hv@pc1:/work$ sha256sum clang7glibc2.11_libgcc_s_unwinder.7z
-920d4e0f77cd51374f9140835e602991de75b92933eb756a74d10a6369861897  clang7glibc2.11_libgcc_s_unwinder.7z
 
+920d4e0f77cd51374f9140835e602991de75b92933eb756a74d10a6369861897 clang7glibc2.11_libgcc_s_unwinder.7z
+```
+```
 hv@pc1:/work$ 7za x clang7glibc2.11_libgcc_s_unwinder.7z
-
+```
+```
 hv@pc1:/work$ ldd clang20062018/bin/clang++
         linux-vdso.so.1 =>  (0x00007fffdd3ff000)
         libpthread.so.0 => /lib/libpthread.so.0 (0x00007f5892e14000)
@@ -19,7 +25,9 @@ hv@pc1:/work$ ldd clang20062018/bin/clang++
         libgcc_s.so.1 => /media/sharedserverku/work/clang20062018/bin/../lib/libgcc_s.so.1 (0x00007f5891bef000)
         libc.so.6 => /lib/libc.so.6 (0x00007f589188d000)
         /lib64/ld-linux-x86-64.so.2 (0x00007f5893044000)
-		
+```
+
+```		
 hv@pc1:/work$ ldd clang20062018/lib/clang/7.0.0/lib/linux/libclang_rt.hwasan-x86_64.so
         linux-vdso.so.1 =>  (0x00007fff977ff000)
         libc++.so.1 => /media/sharedserverku/work/clang20062018/lib/clang/7.0.0/lib/linux/../../../../../lib/libc++.so.1 (0x00007f8d8ba9f000)
@@ -31,20 +39,24 @@ hv@pc1:/work$ ldd clang20062018/lib/clang/7.0.0/lib/linux/libclang_rt.hwasan-x86
         libm.so.6 => /lib/libm.so.6 (0x00007f8d8ac4e000)
         libpthread.so.0 => /lib/libpthread.so.0 (0x00007f8d8aa31000)
         /lib64/ld-linux-x86-64.so.2 (0x00007f8d8c892000)
+```
 		
 
 ## Reproducing 
-
+```
 hv@pc1:/work$ cmake -DCLANG_DEFAULT_RTLIB=compiler-rt -DCLANG_DEFAULT_CXX_STDLIB=libc++ \
 -DCLANG_DEFAULT_LINKER=lld -DSANITIZER_CXX_ABI=libc++ -DLLVM_TARGETS_TO_BUILD="X86;AMDGPU" \
 -DLLVM_ENABLE_LIBXML2=OFF_ -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX \
 -DCMAKE_CXX_FLAGS="-stdlib=libc++" -DPYTHON_EXECUTABLE=/opt/py27/bin/python \
 -DCMAKE_BUILD_TYPE=Release  \
 -DCMAKE_INSTALL_PREFIX=/media/work/clang20062018 -G "Ninja" ..
+```
 
+```
 hv@pc1:/work$ ninja && ninja install
 
 hv@pc1:/work$ cd /media/work/clang20062018/lib && nano libc++.so 
+```
 
 and append ```-lgcc_s``` at the end.
  
