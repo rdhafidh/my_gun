@@ -1,3 +1,3 @@
-# My gun
+# Myc
 
-Misc linux binaries, currently clang.
+Misc linux binaries, currently clang, cmake and ninja.
